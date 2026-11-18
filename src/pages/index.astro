@@ -1,17 +1,33 @@
 ---
 import { Font } from 'astro:assets';
 
-const base = import.meta.env.PUBLIC_AUDIO_BASE;
+import { AUDIO_BASE } from '../config';
+
+import bg from '../assets/bg2.png'
+
+import Header from '../components/Header.astro';
+
+
+
+import pageHtml from "../data/xaev-kick.html?raw";
+
+const match = pageHtml.match(/"contentUrl"\s*:\s*"([^"]+\.mp3[^"]*)"/);
+const sampleUrl = match?.[1] ?? null;
 ---
 
-<a href = "/">home</a>
-<a href = "/about/">about</a>
-<a href = "/updates/">updates</a>
+{sampleUrl ? (
+  <audio controls preload="none" src={sampleUrl}></audio>
+) : (
+  <p>Sample unavailable.</p>
+)}
+---
+
+
 
 <html lang="en">
 	
 	<head>
-		<style>
+		<style is:global define:vars={{bg: `url(${bg.src})`}}>
 			h1 {
 				color:cornflowerblue;
 				font-size: 3rem;
@@ -37,13 +53,27 @@ const base = import.meta.env.PUBLIC_AUDIO_BASE;
 				color:darkgoldenrod;
 				font-family: var(--font-pop-happiness);
 			}
+			body{
+				background-image: var(--bg);
+			}
 		</style>
 		<Font cssVariable="--font-pop-happiness"/>
 		<meta charset=" utf-8"/>
 		<title>the splography</title>
 		</head>
 	<body>
+		<Header />
 		<h1>the splography</h1>
-		<audio controls src={`${base}/botanicantdothis.mp3`}></audio>
+		<audio controls src={`${AUDIO_BASE}/botanicantdothis.mp3`}></audio>
+	
+		{sampleUrl ? (
+  <audio controls preload="none" src={sampleUrl}></audio>
+) : (
+  <p>Sample unavailable.</p>
+)}
+
+
+
+
 	</body>
 </html>

@@ -1,10 +1,15 @@
 ---
 import { Font } from 'astro:assets';
 
-import bg from '../assets/bg.png'
+import bg from '../assets/bg2.png'
 
-const base = import.meta.env.PUBLIC_AUDIO_BASE;
-const pageTitle = "about me"
+import { AUDIO_BASE } from '../config';
+
+import Footer from '../components/Footer.astro';
+
+import Navigation from '../components/Navigation.astro';
+
+const pageTitle = "about me";
 
 const identity = {
 	firstName: "Sploof",
@@ -23,16 +28,14 @@ const skillColor = "antiquewhite";
 const textCase = "lowercase";
 ---
 
-<a href = "/">home</a>
-<a href = "/about/">about</a>
-<a href = "/updates/">updates</a>
+<Navigation />
 
 <html lang="en">
 	
 	<head>
 		<meta charset=" utf-8"/>
 		<title>{pageTitle}</title>
-		<style define:vars={{skillColor,textCase, bg: bg.src}}>
+		<style is:global define:vars={{skillColor,textCase, bg: `url(${bg.src})`}}>	
 			h1 {
 				color:cornflowerblue;
 				font-size: 3rem;
@@ -59,7 +62,7 @@ const textCase = "lowercase";
 				font-family: var(--font-pop-happiness);
 			}
 			body{
-				background-image: url(var(--bg));
+				background-image: var(--bg);
 			}
 
 			.skill{
@@ -93,7 +96,9 @@ const textCase = "lowercase";
 {finished && <p>im not finished</p>}
 {album === 1 ? <p>album in progress</p> : <p>no songs in progress</p>}
 
+		<Footer />
 
+		<p>i dont really use anything else</p>
 	</body>
 </html>
 

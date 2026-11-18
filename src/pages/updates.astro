@@ -1,18 +1,21 @@
 ---
 import { Font } from 'astro:assets';
 
-const base = import.meta.env.PUBLIC_AUDIO_BASE;
+import { AUDIO_BASE } from '../config';
+
+import bg from '../assets/bg2.png'
+
+import Navigation from '../components/Navigation.astro';
+
 const pageTitle = "updates";
 ---
 
-<a href = "/">home</a>
-<a href = "/about/">about</a>
-<a href = "/updates/">updates</a>
 
-<html lang="en">
+
+<Navigation />
 	
 	<head>
-		<style>
+		<style define:vars={{bg: `url(${bg.src})`}}>
 			h1 {
 				color:cornflowerblue;
 				font-size: 3rem;
@@ -36,6 +39,9 @@ const pageTitle = "updates";
 			a {
 				color:darkgoldenrod;
 				font-family: var(--font-pop-happiness);
+			}
+			body{
+				background-image: var(--bg);
 			}
 		</style>
 		<Font cssVariable="--font-pop-happiness"/>
